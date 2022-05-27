@@ -4,25 +4,25 @@ class Program{
   public static void Main(){
   Disciplina x = new Disciplina();
   x.nome = "ingles";
-  x.n1 = 20;
-  x.n2 = 50;
-  x.n3 = 60;
-  x.n4 = 70;
+  x.nota1 = 20;
+  x.nota2 = 50;
+  x.nota3 = 60;
+  x.nota4 = 70;
   Console.WriteLine(x.MediaParcial());
-  x.provaf = 60;
+  x.notaFinal = 60;
   Console.WriteLine(x.MediaFinal()); 
   }
 }
 
 class Disciplina{
   public string nome;
-  public double n1, n2, n3, n4, provaf;
+  public double nota1, nota2, nota3, nota4, notaFinal;
   public double MediaParcial(){
-    double media = (2*n1+2*n2+3*n3+3*n4)/10;
+    double media = (2*nota1+2*nota2+3*nota3+3*nota4)/10;
     return media;
   }
   public double MediaFinal(){
-    double mediaf = (provaf+media)/2;
-    return mediaf;
+    double mediaFinal = (notaFinal+media)/2;
+    return mediaFinal;
   }
 }

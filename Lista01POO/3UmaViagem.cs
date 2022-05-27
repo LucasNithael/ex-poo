@@ -5,7 +5,7 @@ class Program{
   Viagem x = new Viagem();
   x.distancia = 200;
   x.hora = 2;
-  Console.WriteLine(x.VelocidadeMedia());
+  Console.WriteLine(x.VelocidadeMedia() + "km/h");
   
   }
 }
