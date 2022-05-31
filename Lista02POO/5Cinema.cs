@@ -3,14 +3,14 @@ using System;
 class Program{
   public static void Main(){
     Ingresso x = new Ingresso();
-    x.SetDia("qua");
-    x.SetHora(00);
+    x.SetDia("qll");
+    x.SetHora(14);
     Console.WriteLine("valor do ingresso: " + x.valorIngresso());
   }
 }
 
 class Ingresso{
-  private string dia;
+  private string dia = " ";
   private int hora=-1;
   public void SetDia(string dia){
     dia = dia.ToUpper();

@@ -6,8 +6,8 @@ class Program{
   x.SetNome("inglês");
   x.SetNota1(60);
   x.SetNota2(60);
-  x.SetNota2(60);
-  x.SetNota2(60);
+  x.SetNota3(60);
+  x.SetNota4(60);
   Console.WriteLine("Media " + x.MediaParcial());
   x.SetNotaFinal(60);
   Console.WriteLine("Media Final " + x.MediaFinal()); 
@@ -17,8 +17,6 @@ class Program{
 class Disciplina{
   private string nome;
   private double nota1, nota2, nota3, nota4, notaFinal;
-  public double media=0, mediaFinal=0;
-
   public void SetNome(string nome){
     if(nome != " ") this.nome = nome;
   }
@@ -58,11 +56,12 @@ class Disciplina{
   
   
   public double MediaParcial(){
-    media = (nota1+nota2+nota3+nota4)/10;
+    this.media = (nota1+nota2+nota3+nota4)/10;
     return media;
   }
   public double MediaFinal(){
-    mediaFinal = (notaFinal+media)/2;
+    double mediaFinal = (notaFinal+MediaParcial())/2;
     return mediaFinal;
   }
 }
+
