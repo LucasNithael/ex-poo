@@ -9,7 +9,8 @@ class MainClass{
     //Console.WriteLine(c1.GetLimite());
     c1.SetSocio(c2);
     Console.WriteLine(c1.GetLimite());
-
+    Console.WriteLine(c2.GetLimite());
+    
     Empresa emp = new Empresa();
     emp.Inserir(c1);
     emp.Inserir(c2);
@@ -30,8 +31,10 @@ class Cliente{
     this.limite = limite;
   }
   public void SetSocio(Cliente c){
-    this.limite = this.limite + c.GetLimite();
-    this.socio = c;                                //como SetSocio para ao contrário
+    this.limite = this.limite + c.GetLimite();      //soma limite de socio com cliente
+    this.socio = c;                                 //cliente recebe socio 
+    c.socio = this;                                 // Socio recebe cliente como socio 
+    socio.limite = limite;                          // limite de socio recebe novo limite somado do cliente, pois ambos limites precisam ser somados, logo serão iguais
   }
   public double GetLimite(){
     return limite;

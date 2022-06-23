@@ -28,7 +28,7 @@ class Bingo{
   }
   public int Proximo(){
     if(k==numBola) return -1;
-    Random x = new Random();  
+    Random x = new Random();          //tem como gerar valores sem ser repetidos
     int bola = x.Next(numBola);
     sorteado[k] = bola;
     k++;
