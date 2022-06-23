@@ -42,7 +42,7 @@ class Estagio{
    public bool Cancelar(DateTime data){
     if(Situacao()==SituacaoEstagio.Iniciado){
       dataCancelamento = data;
-      situacao = SituacaoEstagio.Iniciado;
+      situacao = SituacaoEstagio.Cancelado;
       return true;
     }
     else return false;
