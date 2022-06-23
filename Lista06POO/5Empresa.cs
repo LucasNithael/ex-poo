@@ -31,7 +31,7 @@ class Cliente{
   }
   public void SetSocio(Cliente c){
     this.limite = this.limite + c.GetLimite();
-    this.socio = c;
+    this.socio = c;                                //como SetSocio para ao contrário
   }
   public double GetLimite(){
     return limite;

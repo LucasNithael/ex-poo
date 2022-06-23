@@ -52,6 +52,6 @@ class Agenda{
     return contato;  
   }
   //public Contato[] AniversarianteMes(int mes){
-   // return contato.nascimento;
+   // return contato.nascimento;                       //Como pegar apenas o mes da classe Agenda
   //}
 }
