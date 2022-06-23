@@ -17,11 +17,11 @@ class MainClass{
     a.Inserir(cont3);
     a.Inserir(cont4);
     a.Inserir(cont5);
-    foreach(Contato i in a.Listar())
-      Console.WriteLine(i);
-    
-    //foreach(Contato i in a.AniversarianteMes(4))
+    //foreach(Contato i in a.Listar())
       //Console.WriteLine(i);
+    
+    foreach(Contato i in a.AniversarianteMes(5))
+      Console.WriteLine(i);
   }
 }
 
@@ -46,7 +46,7 @@ class Contato{
 class Agenda{
   private Contato[] contato = new Contato[1];
   private int k = 0;
-  private int j = 0;
+  
   public void Inserir(Contato x){
       if (k == contato.Length)
         Array.Resize(ref contato, 1 + contato.Length); 
@@ -57,6 +57,19 @@ class Agenda{
     return contato;  
   }
   public Contato[] AniversarianteMes(int mes){
-    
+    int j = 0;
+    foreach(Contato i in Listar())
+      if(i.GetMes()==mes){
+        j++;  
+      }
+      
+    Contato[] r = new Contato[j];
+    int l = 0;
+    foreach(Contato i in Listar())
+       if(i.GetMes()==mes){
+          r[l] = i;
+            l++;
+      }
+    return r;
   }
 }
