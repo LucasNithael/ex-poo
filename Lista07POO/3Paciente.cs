@@ -1,8 +1,12 @@
 using System;
+using System.Globalization;
+using System.Threading;
 
 class Program{
   public static void Main(){
-    Paciente p = new Paciente{Nome = "Lucas", CPF = "70541519417", Telefone = "40028922", Nascimento = DateTime.Parse("04/04/2000")};
+    CultureInfo ci = new CultureInfo("pt-BR");
+    Thread.CurrentThread.CurrentCulture = ci;
+    Paciente p = new Paciente{Nome = "matheus", CPF = "70541519417", Telefone = "40028922", Nascimento = DateTime.Parse("27/7/2025")};
     
     Console.WriteLine(p);
     Console.WriteLine(p.Idade);
@@ -26,7 +30,7 @@ class Paciente{
     set {nascimento = value;}
   }
   public string Idade{
-    get => $"{DateTime.Today.Year - nascimento.Year} anos e {DateTime.Today.Month - nascimento.Month} meses";
+    get => $"{DateTime.Today.Year - nascimento.Year} anos e {Math.Abs(DateTime.Today.Month - nascimento.Month)} meses";
   }
   public override string ToString(){
     return $"{nome} - {cpf} - {telefone} - {nascimento: dd/MM/yyyy}";
