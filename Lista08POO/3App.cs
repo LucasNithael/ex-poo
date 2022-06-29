@@ -11,6 +11,17 @@ class Program{
     
   Loja loja = new Loja{Nome="PlayStore"};
 
+    app1.Curtir();
+    app1.Curtir();
+    app1.Curtir();
+
+    app2.Curtir();
+    app2.Curtir();
+
+    app3.Curtir();
+
+    
+    
     Console.WriteLine();
     Console.WriteLine($"----Loja {loja.Nome}----");    
     Console.WriteLine();
@@ -36,9 +47,18 @@ class Program{
     foreach(Aplicativo x in loja.Pesquisar("Comunicação"))
       Console.WriteLine(x);
 
-    /*Console.WriteLine();
+    Console.WriteLine();
     Console.WriteLine("----Quantidade de APPs----");
-    Console.WriteLine(loja.Qtd);*/
+    Console.WriteLine(loja.Qtd);
+
+    Console.WriteLine("\n----Lista por preço----");
+    foreach(Aplicativo i in loja.ListarPreco())
+      Console.WriteLine(i);
+
+
+     Console.WriteLine("\n----Lista por curtidas----");
+    foreach(Aplicativo i in loja.ListarCurtidas())
+      Console.WriteLine(i);
     
   }
 }
@@ -97,7 +117,22 @@ class Loja{
     
     return r;
   }
+  public Aplicativo[] ListarPreco(){
+    PrecoComp x = new PrecoComp();
+    Aplicativo[] r = new Aplicativo[qtd];
+    Array.Copy(Listar(), r, qtd);
+    Array.Sort(r, x);
+    return r;
+  }
+  public Aplicativo[] ListarCurtidas(){
+    CurtidasComp x = new CurtidasComp();
+    Aplicativo[] r = new Aplicativo[qtd];
+    Array.Copy(Listar(), r, qtd);
+    Array.Sort(r, x);
+    return r;
+  }
 }
+
 
 
 class Aplicativo : IComparable{
@@ -114,7 +149,7 @@ class Aplicativo : IComparable{
     return this.Nome.CompareTo(x.Nome);
   }
   public override string ToString(){
-    return $"{Nome} - Categoria: {Categoria} - Valor: {Preco:c2}";
+    return $"{Nome} - Categoria: {Categoria} - {Preco:c2} - {curtidas} Curtidas ";
   }
 }
 
@@ -122,7 +157,7 @@ class PrecoComp : IComparer {
   public int Compare(object x, object y){
     Aplicativo a = (Aplicativo)x;
     Aplicativo b = (Aplicativo)y;
-    return a.Preco.CompareTo(b.Preco);
+    return -a.Preco.CompareTo(b.Preco);
   }
 }
 
@@ -130,6 +165,6 @@ class CurtidasComp : IComparer {
   public int Compare(object x, object y){
     Aplicativo a = (Aplicativo)x;
     Aplicativo b = (Aplicativo)y;
-    return a.Curtidas.CompareTo(b.Curtidas);
+    return -a.Curtidas.CompareTo(b.Curtidas);
   }
 }
