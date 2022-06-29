@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+
 
 class Program{
   public static void Main(){
@@ -18,24 +20,25 @@ class Program{
     loja.Inserir(app3);
     loja.Inserir(app4);
 
-    loja.Excluir(app1);
+    //loja.Excluir(app1);
     //loja.Excluir(app4);
 
     Console.WriteLine("----Lista de APP----");
-    //Lista Categoria        
+    //Lista Categoria   
+    Array.Sort(loja.Listar());
     foreach(Aplicativo x in loja.Listar())
       Console.WriteLine(x);
     
     Console.WriteLine();
     
     Console.WriteLine("----Lista de Categoria----");
-    //Lista Categoria
+  
     foreach(Aplicativo x in loja.Pesquisar("Comunicação"))
       Console.WriteLine(x);
 
-    Console.WriteLine();
+    /*Console.WriteLine();
     Console.WriteLine("----Quantidade de APPs----");
-    Console.WriteLine(loja.Qtd);
+    Console.WriteLine(loja.Qtd);*/
     
   }
 }
@@ -75,6 +78,7 @@ class Loja{
         r[j]=i;
         j++;      
       }
+    Array.Sort(r);
     return r;
   }
   public Aplicativo[] Pesquisar(string catg){
@@ -96,7 +100,7 @@ class Loja{
 }
 
 
-class Aplicativo{
+class Aplicativo : IComparable{
   private int curtidas;
   public string Nome{get; set;}
   public string Categoria{get; set;}
@@ -105,7 +109,27 @@ class Aplicativo{
   public void Curtir(){
     this.curtidas = this.curtidas + 1;
   }
+  public int CompareTo(object obj){
+    Aplicativo x = (Aplicativo)obj;
+    return this.Nome.CompareTo(x.Nome);
+  }
   public override string ToString(){
-    return $"App: {Nome} - Categoria: {Categoria} - Valor: {Preco:c2}";
+    return $"{Nome} - Categoria: {Categoria} - Valor: {Preco:c2}";
+  }
+}
+
+class PrecoComp : IComparer {
+  public int Compare(object x, object y){
+    Aplicativo a = (Aplicativo)x;
+    Aplicativo b = (Aplicativo)y;
+    return a.Preco.CompareTo(b.Preco);
+  }
+}
+
+class CurtidasComp : IComparer {
+  public int Compare(object x, object y){
+    Aplicativo a = (Aplicativo)x;
+    Aplicativo b = (Aplicativo)y;
+    return a.Curtidas.CompareTo(b.Curtidas);
   }
 }

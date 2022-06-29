@@ -12,10 +12,9 @@ class Program{
     Agenda x = new Agenda();
      
     
-    x.Inserir(a);
-       
+    x.Inserir(a);  
     x.Inserir(b);
-    //x.Excluir(b); 
+    //x.Excluir(a); 
     x.Inserir(c);
     
     Console.WriteLine("Lista de Compromissos: ");
@@ -58,14 +57,14 @@ class Agenda{
         
     return h;
   }
-  public Compromisso[] Excluir(Compromisso c){
+  public Compromisso[] Excluir(Compromisso c) {
     for(int i=0; i<comps.Length; i++)
       if(comps[i]==c)
         comps[i]=null;
 
     return comps;
   }
-  public Compromisso[] Pesquisar(int mes, int ano){
+  public Compromisso[] Pesquisar(int mes, int ano) {
     int l = 0;
     foreach(Compromisso i in Listar())
       if(i!=null)
