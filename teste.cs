@@ -1,48 +1,24 @@
-// When you implement IEnumerable, you must also implement IEnumerator.
-public class PeopleEnum : IEnumerator
-{
-    public Person[] _people;
+using System;
 
-    // Enumerators are positioned before the first element
-    // until the first MoveNext() call.
-    int position = -1;
+class MainClass{
+  public static void Main(){
+    object x;
+    dynamic x;
+    x = 10;
+    Console.WriteLine(x);
 
-    public PeopleEnum(Person[] list)
-    {
-        _people = list;
-    }
+    Pessoa p = new Pessoa("Lucas");
+    x = p;
+    Console.WriteLine(x.nome);
+  }
+}
 
-    public bool MoveNext()
-    {
-        position++;
-        return (position < _people.Length);
-    }
-
-    public void Reset()
-    {
-        position = -1;
-    }
-
-    object IEnumerator.Current
-    {
-        get
-        {
-            return Current;
-        }
-    }
-
-    public Person Current
-    {
-        get
-        {
-            try
-            {
-                return _people[position];
-            }
-            catch (IndexOutOfRangeException)
-            {
-                throw new InvalidOperationException();
-            }
-        }
-    }
+class Pessoa{
+  public string nome;
+  public Pessoa(string n){
+    nome = n;
+  }
+  public string GetNome(){
+    return nome;
+  }
 }
