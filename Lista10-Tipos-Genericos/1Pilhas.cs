@@ -35,11 +35,19 @@ class Program{
 
     Console.WriteLine("\nNovo ultimo:\n"+l.Peek());
 
+    Console.WriteLine("\nNumero de elementos: " + l.Count);
     Console.WriteLine();
-
+    
+    
+    //l.Clear();
+    
+    
     Console.WriteLine("Lista com Modicações: ");
     foreach(Aplicativo i in l.Listar())
       Console.WriteLine(i);
+
+    Console.WriteLine("\nNumero de elementos: " + l.Count);
+    Console.WriteLine();
   }
 }
 
@@ -55,7 +63,7 @@ class Aplicativo{
 class Pilha<T>{
   private T[] objs = new T[1];
   private int k;
-  public int Count{get; set;}
+  public int Count{get{return k;}}
   public void Clear(){
     this.k=0;
   }
