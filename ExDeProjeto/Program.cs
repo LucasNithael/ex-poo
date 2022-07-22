@@ -101,15 +101,24 @@ class Program {
 
   public static void ProdutoInserir() {
     Console.WriteLine("----- Produto Inserir -----");
-    Console.WriteLine("Informe a descrição, preço e estoque do produto");
+    Console.WriteLine("Informe a descrição do produto");
     string desc = Console.ReadLine();
+    Console.WriteLine("Informe o preço do produto");
     double preco = double.Parse(Console.ReadLine());
+    Console.WriteLine("Informe o estoque do produto");
     int estoque = int.Parse(Console.ReadLine());
+
+    Console.WriteLine("Informe o Id da categoria do produto");
+    foreach(Categoria obj in NCategoria.Listar())
+      Console.WriteLine(obj);
+    Console.Write("Ops: ");
+    int idcatg = int.Parse(Console.ReadLine());
     
     Produto p = new Produto();
     p.Descricao = desc;
     p.Preco = preco;
     p.Estoque = estoque;
+    p.IdCategoria = idcatg;
 
     NProduto.Inserir(p);
 
@@ -118,7 +127,7 @@ class Program {
   public static void ProdutoListar() {
     Console.WriteLine("----- Produto Listar -----");
     foreach(Produto obj in NProduto.Listar())
-      Console.WriteLine(obj);
+      Console.WriteLine(obj + NCategoria.Listar(obj.IdCategoria).Descricao);
   }
   public static void ProdutoAtualizar() {
     Console.WriteLine("----- Produto Atualizar -----");
@@ -132,12 +141,15 @@ class Program {
     string desc = Console.ReadLine();
     Console.WriteLine("Informe o novo preço do produto");
     double preco = double.Parse(Console.ReadLine());
+    Console.WriteLine("Informe o novo estoque do produto");
+    int estoque = int.Parse(Console.ReadLine());
     
     Produto p = new Produto();
     p.Id = id;
     p.Descricao = desc;
     p.Preco = preco;
-
+    p.Estoque = estoque;
+    
     NProduto.Atualizar(p);
 
     Console.WriteLine("Produto atualizado com sucesso");
