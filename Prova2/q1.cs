@@ -21,6 +21,10 @@ class MainClass{
     Console.WriteLine($"\n----Lista de Lote por mes:  {m1.Nome}----\n");
     foreach(Lote i in m1.Pesquisar(6, 2022))
       Console.WriteLine(i);
+
+    Console.WriteLine($"\n----Quantidade de lote:  {m1.Nome}----\n");
+     Console.WriteLine(m1.Qtd);   
+        
   }
 }
 
@@ -31,7 +35,7 @@ class Lote : IComparable{
   public int CompareTo(object obj){
     Lote x = (Lote)obj;
     if(this.Vencimento.CompareTo(x.Vencimento) == 0)
-      return this.Estoque.CompareTo(x.Estoque);
+      return this.Numero.CompareTo(x.Numero);
     else return this.Vencimento.CompareTo(x.Vencimento);
     
   }
@@ -44,12 +48,11 @@ class Medicamento{
   private Lote[] lotes = new Lote[1];
   public string Nome{get; set;}
   private int k;
-  //public int Qdt{return k;}
+  public int Qtd{get{return k;}}
   public void Inserir(Lote a){
     if(k==lotes.Length)
       Array.Resize(ref lotes, 1 + lotes.Length);
-    lotes[k] = a;
-    k++;
+    lotes[k++] = a;
   } 
   public Lote[] Listar(){
     int l=0;

@@ -34,15 +34,17 @@ class Program{
     l.Push(app6);
 
     Console.WriteLine("\nNovo ultimo:\n"+l.Peek());
-
     Console.WriteLine("\nNumero de elementos: " + l.Count);
     Console.WriteLine();
     
-    
-    //l.Clear();
-    
-    
     Console.WriteLine("Lista com Modicações: ");
+    foreach(Aplicativo i in l.Listar())
+      Console.WriteLine(i);
+    
+    l.Clear();
+    
+    
+    Console.WriteLine("\nLista com Modicações: ");
     foreach(Aplicativo i in l.Listar())
       Console.WriteLine(i);
 
