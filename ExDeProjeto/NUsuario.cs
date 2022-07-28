@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 class NUsuario{
-  public List<Usuario> usuarios = new List<Usuario>();
+  public static List<Usuario> usuarios = new List<Usuario>();
   public static int Inserir(Usuario u){
     int id = 0;
     foreach(Usuario obj in usuarios)
@@ -12,7 +12,7 @@ class NUsuario{
     usuarios.Add(u);
     return id;
   }
-  public Usuario Autenticar(string nome, string senha){
+  public static Usuario Autenticar(string nome, string senha){
     foreach(Usuario i in usuarios)
       if(i.Nome==nome && i.Senha==senha)
         return i;

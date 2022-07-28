@@ -1,20 +1,55 @@
 using System;
 
 class Program {
-  public static bool AdminLogado = false;
-  public static Cliente = nuçll
+  private static bool adminLogado = false;
+  private static Cliente clienteLogado = null;
+
+  public static void InserirAdmin() {
+    Usuario u = new Usuario();
+    u.Nome = "admin";
+    u.Senha = "admin";
+    u.Admin = true;
+    NUsuario.Inserir(u);
+  }
+  
   public static void Main() {
+    InserirAdmin();    
     Console.WriteLine("--- Bem-vindo ao IFShop ---");
-    Console.WriteLine();
     int op = 0;
     do {
       try {
         op = Menu();
         switch (op) {
+            // Categoria
+            case 01 : 
+              if (Login()) { 
+                if (adminLogado) MainAdmin();
+                else MainCliente();
+              }
+              else 
+                Console.WriteLine("Usuário ou senha inválidos");
+              break;
+            case 02 : Cadastrarse(); break;
+        }
+      }
+      catch (Exception erro) {
+        Console.WriteLine(erro.Message);      
+      }
+    } while (op != 99);
+  }
+    
+  public static void MainAdmin() {
+    int op = 0;
+    do {
+      try {
+        op = MenuAdmin();
+        switch (op) {
+            // Categoria
             case 01 : CategoriaInserir(); break;
             case 02 : CategoriaListar(); break;
             case 03 : CategoriaAtualizar(); break;
             case 04 : CategoriaExcluir(); break;
+            // Produto
             case 05 : ProdutoInserir(); break;
             case 06 : ProdutoListar(); break;
             case 07 : ProdutoAtualizar(); break;
@@ -26,25 +61,98 @@ class Program {
       }
     } while (op != 99);
   }
+  public static void MainCliente() {
+    int op = 0;
+    do {
+      try {
+        op = MenuCliente();
+        switch (op) {
+        }
+      }
+      catch (Exception erro) {
+        Console.WriteLine(erro.Message);      
+      }
+    } while (op != 99);
+  }  
+  
   public static int Menu() {
+    Console.WriteLine();
+    Console.WriteLine("----- Selecione ------");
+    Console.WriteLine("  01 - Login");
+    Console.WriteLine("  02 - Cadastrar-se");
+    Console.WriteLine("----------------------");
+    Console.WriteLine("  99 - Sair");
+    Console.WriteLine("----------------------");
+    Console.Write("Opção: ");
+    return int.Parse(Console.ReadLine());    
+  }
+
+  public static int MenuAdmin() {
+    Console.WriteLine();
     Console.WriteLine("----- Categorias -----");
     Console.WriteLine("  01 - Inserir");
     Console.WriteLine("  02 - Listar");
     Console.WriteLine("  03 - Atualizar");
     Console.WriteLine("  04 - Excluir");
-    Console.WriteLine("----- Produto -----");
+    Console.WriteLine("------ Produtos ------");
     Console.WriteLine("  05 - Inserir");
     Console.WriteLine("  06 - Listar");
     Console.WriteLine("  07 - Atualizar");
     Console.WriteLine("  08 - Excluir");
     Console.WriteLine("----------------------");
-    Console.WriteLine("  99 - Fim");
+    Console.WriteLine("  99 - Logout");
     Console.WriteLine("----------------------");
     Console.Write("Opção: ");
     return int.Parse(Console.ReadLine());    
   }
+  
+  public static int MenuCliente() {
+    Console.WriteLine();
+    Console.WriteLine($"--- Bem-vindo: {clienteLogado.Nome} ---" );
+    Console.WriteLine("----------------------");
+    Console.WriteLine("  99 - Logout");
+    Console.WriteLine("----------------------");
+    Console.Write("Opção: ");
+    return int.Parse(Console.ReadLine());    
+  }
+
+  public static bool Login() {
+    Console.WriteLine("Informe o nome");
+    string nome = Console.ReadLine();
+    Console.WriteLine("Informe a senha");
+    string senha = Console.ReadLine();
+    Usuario u = NUsuario.Autenticar(nome, senha);
+    if (u != null) {
+      // Alguém logou! true -> admin, false -> cliente
+      adminLogado = u.Admin;
+      // Cliente logado se estiver no cadastro de clientes
+      // o id do usuário informado
+      clienteLogado = NCliente.Listar(u.Id); 
+      return true;
+    }
+    return false;
+  }
+  public static void Cadastrarse() {
+    Console.WriteLine("Informe o nome");
+    string nome = Console.ReadLine();
+    Console.WriteLine("Informe a senha");
+    string senha = Console.ReadLine();
+    // Usuario
+    Usuario u = new Usuario();
+    u.Nome = nome;
+    u.Senha = senha;
+    u.Admin = false;
+    int idUsuario = NUsuario.Inserir(u);
+    // Cliente
+    Cliente c = new Cliente();
+    c.Nome = nome;
+    c.IdUsuario = idUsuario; 
+    NCliente.Inserir(c);
+    Console.WriteLine("Cliente cadastrado com sucesso");
+  }
+  
   public static void CategoriaInserir() {
-    Console.WriteLine("----- Categoria Inserir -----");
+    Console.WriteLine("----- Nova Categoria -----");
 
     //Console.WriteLine("Informe o id da categoria");
     //int id = int.Parse(Console.ReadLine());
@@ -60,12 +168,12 @@ class Program {
     Console.WriteLine("Categoria inserida com sucesso");
   }
   public static void CategoriaListar() {
-    Console.WriteLine("----- Categoria Listar -----");
+    Console.WriteLine("----- Lista de Categorias -----");
     foreach(Categoria obj in NCategoria.Listar())
       Console.WriteLine(obj);
   }
   public static void CategoriaAtualizar() {
-    Console.WriteLine("----- Categoria Atualizar -----");
+    Console.WriteLine("----- Atualizar Categoria -----");
 
     foreach(Categoria obj in NCategoria.Listar())
       Console.WriteLine(obj);
@@ -84,7 +192,7 @@ class Program {
     Console.WriteLine("Categoria atualizada com sucesso");
   }
   public static void CategoriaExcluir() {
-    Console.WriteLine("----- Categoria Excluir -----");
+    Console.WriteLine("----- Excluir Categoria -----");
     foreach(Categoria obj in NCategoria.Listar())
       Console.WriteLine(obj);
 
@@ -99,60 +207,63 @@ class Program {
     Console.WriteLine("Categoria excluída com sucesso");
   }
 
-
-
   public static void ProdutoInserir() {
-    Console.WriteLine("----- Produto Inserir -----");
+    Console.WriteLine("----- Novo Produto -----");
+
     Console.WriteLine("Informe a descrição do produto");
     string desc = Console.ReadLine();
-    Console.WriteLine("Informe o preço do produto");
+    Console.WriteLine("Informe o preço");
     double preco = double.Parse(Console.ReadLine());
-    Console.WriteLine("Informe o estoque do produto");
+    Console.WriteLine("Informe o estoque");
     int estoque = int.Parse(Console.ReadLine());
 
-    Console.WriteLine("Informe o Id da categoria do produto");
-    foreach(Categoria obj in NCategoria.Listar())
-      Console.WriteLine(obj);
-    Console.Write("Ops: ");
-    int idcatg = int.Parse(Console.ReadLine());
+    CategoriaListar();
+    Console.WriteLine("Informe o id da categoria");
+    int idCategoria = int.Parse(Console.ReadLine());
     
-    Produto p = new Produto();
-    p.Descricao = desc;
-    p.Preco = preco;
-    p.Estoque = estoque;
-    p.IdCategoria = idcatg;
+    Produto c = new Produto();
+    c.Descricao = desc;
+    c.Preco = preco;
+    c.Estoque = estoque;
+    c.IdCategoria = idCategoria;
 
-    NProduto.Inserir(p);
+    NProduto.Inserir(c);
 
     Console.WriteLine("Produto inserido com sucesso");
   }
   public static void ProdutoListar() {
-    Console.WriteLine("----- Produto Listar -----");
+    Console.WriteLine("----- Lista de Produtos -----");
     foreach(Produto obj in NProduto.Listar())
-      Console.WriteLine(obj + NCategoria.Listar(obj.IdCategoria).Descricao);
+      Console.WriteLine(obj + " - Categoria: " +
+        NCategoria.Listar(obj.IdCategoria).Descricao);
   }
   public static void ProdutoAtualizar() {
-    Console.WriteLine("----- Produto Atualizar -----");
+    Console.WriteLine("----- Atualizar Produto -----");
 
     foreach(Produto obj in NProduto.Listar())
       Console.WriteLine(obj);
     
-    Console.WriteLine("Informe o id da produto a ser atualizada");
+    Console.WriteLine("Informe o id da produto a ser atualizado");
     int id = int.Parse(Console.ReadLine());
-    Console.WriteLine("Informe a nova descrição do produto");
+    Console.WriteLine("Informe a nova descrição da produto");
     string desc = Console.ReadLine();
-    Console.WriteLine("Informe o novo preço do produto");
+    Console.WriteLine("Informe o preço");
     double preco = double.Parse(Console.ReadLine());
-    Console.WriteLine("Informe o novo estoque do produto");
+    Console.WriteLine("Informe o estoque");
     int estoque = int.Parse(Console.ReadLine());
+
+    CategoriaListar();
+    Console.WriteLine("Informe o id da categoria");
+    int idCategoria = int.Parse(Console.ReadLine());
     
-    Produto p = new Produto();
-    p.Id = id;
-    p.Descricao = desc;
-    p.Preco = preco;
-    p.Estoque = estoque;
-    
-    NProduto.Atualizar(p);
+    Produto c = new Produto();
+    c.Id = id;
+    c.Descricao = desc;
+    c.Preco = preco;
+    c.Estoque = estoque;
+    c.IdCategoria = idCategoria;
+
+    NProduto.Atualizar(c);
 
     Console.WriteLine("Produto atualizado com sucesso");
   }
@@ -164,10 +275,10 @@ class Program {
     Console.WriteLine("Informe o id do produto a ser excluído");
     int id = int.Parse(Console.ReadLine());
     
-    Produto p = new Produto();
-    p.Id = id;
+    Produto c = new Produto();
+    c.Id = id;
 
-    NProduto.Excluir(p);
+    NProduto.Excluir(c);
 
     Console.WriteLine("Produto excluído com sucesso");
   }
