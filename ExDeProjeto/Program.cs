@@ -1,6 +1,8 @@
 using System;
 
 class Program {
+  public static bool AdminLogado = false;
+  public static Cliente = nuçll
   public static void Main() {
     Console.WriteLine("--- Bem-vindo ao IFShop ---");
     Console.WriteLine();

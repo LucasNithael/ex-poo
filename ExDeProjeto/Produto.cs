@@ -7,6 +7,6 @@ class Produto{
   public int Estoque{get;set;}
   public int IdCategoria{get;set;}
   public override string ToString(){
-    return $"{Id} - {Descricao} {Preco:c2} - Estoque: {Estoque}";
+    return $"{Id} - {Descricao} {Preco:c2} - Estoque: {Estoque} - ";
   }
 }
