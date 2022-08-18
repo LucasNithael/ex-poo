@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -41,8 +41,8 @@ Console.WriteLine();
     */
     SortedList<string, int> d = new SortedList<string, int>();
     d["Brasil"] = 5;
-    //d["Brasil"] = 1000;   //O valor da chave Brasil será mudado
-    d["Itália"] = 4;
+    //d["Brasil"] = 1000;   //O  valor da chave Brasil será mudado
+    d["Itália"] = 4; 
     d["Alemanha"] = 4;
     d["Argentina"] = 2;
     d.Add("Uruguai", 2);

@@ -1,2 +1,4 @@
 language = "csharp"
-run = "mcs -out:main.exe 'ExDeProjeto/Program.cs' 'ExDeProjeto/Categoria.cs' 'ExDeProjeto/NCategoria.cs' 'ExDeProjeto/NProduto.cs' 'ExDeProjeto/Produto.cs' 'ExDeProjeto/Cliente.cs' 'ExDeProjeto/NCliente.cs' 'ExDeProjeto/Usuario.cs' 'ExDeProjeto/NUsuario.cs'; mono main.exe"
+#run = "mcs -out:main.exe 'ExDeProjeto/Program.cs' 'ExDeProjeto/Categoria.cs' 'ExDeProjeto/NCategoria.cs' 'ExDeProjeto/NProduto.cs' 'ExDeProjeto/Produto.cs' 'ExDeProjeto/Cliente.cs' 'ExDeProjeto/NCliente.cs' 'ExDeProjeto/Usuario.cs' 'ExDeProjeto/NUsuario.cs'; mono main.exe"
+
+run = "mcs -out:main.exe 'Lista15-ClassesAbstratas/3Orcamento.cs' ; mono main.exe"
